@@ -1,9 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-# define paths to tools
+# automatically determine the path to the scripts directory
+script_dir="$(dirname "$(realpath "$0")")"
+blockfetch="$script_dir/blockfetch/target/release/blockfetch"
 jq="/usr/bin/jq"
-blockfetch="$(pwd)/scripts/blockfetch/target/release/blockfetch"
+
 echo "using blockfetch at $blockfetch"
 
 # define the output directory and file
@@ -15,7 +17,6 @@ initialize_output() {
     mkdir -p "$output_dir"
     echo '{}' > "$output_file"
 }
-
 
 fetch_block_data() {
     local operator="$1"
